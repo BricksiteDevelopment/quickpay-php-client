@@ -1,5 +1,5 @@
 {
-    "name": "quickpay/quickpay-php-client",
+    "name": "bricksitedevelopment/quickpay-php-client",
     "type": "library",
     "description": "PHP-SDK to communicate with the payment provider QuickPay",
     "homepage": "https://github.com/QuickPay/quickpay-php-client",
