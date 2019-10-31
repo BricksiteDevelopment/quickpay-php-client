@@ -19,6 +19,14 @@ class Client
     public $ch;
 
     /**
+     * Contains headers for the cURL instance
+     *
+     * @var array
+     * @access public
+     */
+    public $headers;
+
+    /**
      * Contains the authentication string
      *
      * @access protected
@@ -71,22 +79,35 @@ class Client
     {
         $this->ch = curl_init();
 
-        $headers = array(
+        $this->headers = array(
             'Accept-Version: v10',
             'Accept: application/json',
         );
 
         if (!empty($this->auth_string)) {
-            $headers[] = 'Authorization: Basic ' . base64_encode($this->auth_string);
+            $this->headers[] = 'Authorization: Basic ' . base64_encode($this->auth_string);
         }
 
         $options = array(
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_SSL_VERIFYPEER => true,
             CURLOPT_HTTPAUTH => CURLAUTH_BASIC,
-            CURLOPT_HTTPHEADER => $headers
+            CURLOPT_HTTPHEADER => $this->headers
         );
 
         curl_setopt_array($this->ch, $options);
+    }
+
+    /**
+     * callback header fucntion
+     * 
+     * Merges the callback header with the already set headers and updates cURL
+     *
+     * @param string $url
+     * @access public
+     */
+    public function setCallbackHeader($url)
+    {
+        curl_setopt($this->ch, CURLOPT_HTTPHEADER, array_merge($this->headers, ['QuickPay-Callback-Url: ' . $url]));
     }
 }

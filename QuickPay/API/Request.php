@@ -34,6 +34,20 @@ class Request
     }
 
     /**
+     * CallbackURL function
+     * 
+     * Sets the callbackURL header on cURL
+     *
+     * @param string $url
+     * @return void
+     * @access public
+     */
+    public function setCallbackUrl($url)
+    {
+        $this->client->setCallbackUrl($url);
+    }
+
+    /**
      * GET function.
      *
      * Performs an API GET request
